@@ -1,26 +1,364 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============================================================
+   NECKROMANCER — Visual Identity System
+   Premium personal neck training brand, Rotterdam NL
+   ============================================================ */
+
+@theme {
+  /* ── Colour Palette ── */
+
+  /* Bone — warm off-whites that avoid clinical sterility */
+  --color-bone-50:  #faf8f5;
+  --color-bone-100: #f3f0eb;
+  --color-bone-200: #e8e3db;
+  --color-bone-300: #d5cec3;
+
+  /* Marrow — the brand's signature warm neutral.
+     Sits between taupe and greige; gives the palette
+     warmth without veering into "coffee shop" territory. */
+  --color-marrow-400: #a89a8b;
+  --color-marrow-500: #8d7e6e;
+  --color-marrow-600: #726252;
+  --color-marrow-700: #574a3c;
+
+  /* Obsidian — deep blacks with a warm brown undertone,
+     NOT blue-black. Feels luxe, not corporate. */
+  --color-obsidian-800: #2a2320;
+  --color-obsidian-900: #1c1714;
+  --color-obsidian-950: #110e0c;
+
+  /* Ember — accent colour. A restrained burnt orange
+     that reads as "force" and "heat" without being loud.
+     Used sparingly: CTAs, active states, key highlights. */
+  --color-ember-400: #d4764e;
+  --color-ember-500: #c25d30;
+  --color-ember-600: #a34a22;
+
+  /* Sinew — a cool secondary accent. Muted sage green
+     that contrasts the warm palette and adds depth.
+     Used for secondary highlights and data/science sections. */
+  --color-sinew-400: #7a9b8a;
+  --color-sinew-500: #5f8272;
+  --color-sinew-600: #4a6b5a;
+
+  /* Utility neutrals */
+  --color-white: #ffffff;
+  --color-black: #0a0807;
+
+  /* ── Typography ── */
+  --font-heading: var(--font-space-grotesk);
+  --font-body:    var(--font-outfit);
+
+  /* ── Spacing scale extension ── */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-120: 30rem;
+
+  /* ── Animation ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-fade-up: fade-up 0.8s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.6s ease both;
+  --animate-scale-in: scale-in 0.7s var(--ease-out-expo) both;
+  --animate-hero-title: hero-title 1s var(--ease-out-expo) both;
+  --animate-hero-subtitle: hero-subtitle 1s 0.15s var(--ease-out-expo) both;
+  --animate-hero-cta: hero-cta 0.8s 0.35s var(--ease-out-expo) both;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-title {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    letter-spacing: 0.12em;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.04em;
+  }
+}
+
+@keyframes hero-subtitle {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-cta {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================================
+   BASE LAYER
+   ============================================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: var(--font-body), system-ui, sans-serif;
+    background-color: var(--color-bone-50);
+    color: var(--color-obsidian-900);
+    line-height: 1.6;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-ember-500);
+    color: var(--color-white);
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-obsidian-950);
+    text-wrap: balance;
+  }
+
+  h1 { font-size: clamp(2.5rem, 5vw + 1rem, 5rem); }
+  h2 { font-size: clamp(2rem, 3.5vw + 0.5rem, 3.5rem); }
+  h3 { font-size: clamp(1.5rem, 2vw + 0.5rem, 2.25rem); }
+  h4 { font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.75rem); }
+
+  /* Links baseline */
+  a {
+    color: inherit;
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Images */
+  img, video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+/* ============================================================
+   SKIP LINK (Accessibility)
+   ============================================================ */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--color-ember-500);
+  color: var(--color-white);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--color-ember-400);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   FOCUS STATES
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-ember-500);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================
+   CUSTOM SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-obsidian-950);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-marrow-600);
+  border: 2px solid var(--color-obsidian-950);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-marrow-500);
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-marrow-600) var(--color-obsidian-950);
+}
+
+/* ============================================================
+   SCROLL REVEAL SYSTEM
+   ============================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay classes */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-6 { transition-delay: 0.6s; }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ============================================================
+   NOISE TEXTURE OVERLAY
+   Extremely subtle grain that adds tactile quality to
+   flat colour sections. Applied via a pseudo-element
+   on the body so it layers over everything.
+   ============================================================ */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ============================================================
+   UTILITY: Section alternation helpers
+   These provide the "breathing" between dark and light
+   sections described in the brief.
+   ============================================================ */
+
+@layer utilities {
+  .section-light {
+    background-color: var(--color-bone-50);
+    color: var(--color-obsidian-900);
+  }
+
+  .section-warm {
+    background-color: var(--color-bone-100);
+    color: var(--color-obsidian-900);
+  }
+
+  .section-mid {
+    background-color: var(--color-marrow-700);
+    color: var(--color-bone-100);
+  }
+
+  .section-dark {
+    background-color: var(--color-obsidian-900);
+    color: var(--color-bone-100);
+  }
+
+  .section-deep {
+    background-color: var(--color-obsidian-950);
+    color: var(--color-bone-100);
+  }
+
+  /* Headings invert in dark sections */
+  .section-mid h1, .section-mid h2, .section-mid h3, .section-mid h4,
+  .section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4,
+  .section-deep h1, .section-deep h2, .section-deep h3, .section-deep h4 {
+    color: var(--color-bone-50);
+  }
 }

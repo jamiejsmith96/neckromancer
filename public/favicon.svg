@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Neckromancer "N" mark — a single confident stroke
+       with a subtle vertebra-like notch at the bend.
+       Works at 16px and up. -->
+  <rect width="32" height="32" rx="6" fill="#1c1714"/>
+  <!-- Left vertical -->
+  <path d="M8 24V8" stroke="#f3f0eb" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Diagonal with vertebra notch -->
+  <path d="M8 8L21.5 21" stroke="#f3f0eb" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Small notch detail — subtle vertebra reference -->
+  <circle cx="14.75" cy="14.5" r="1.25" fill="#c25d30"/>
+  <!-- Right vertical -->
+  <path d="M24 8V24" stroke="#f3f0eb" stroke-width="3.5" stroke-linecap="round"/>
+</svg>
