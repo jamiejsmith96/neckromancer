@@ -31,6 +31,9 @@ export const metadata: Metadata = {
   title: "Neckromancer — Personal Neck Training",
   description:
     "Rotterdam's premier personal neck trainer. Specialised strength, mobility and rehabilitation programmes for the cervical spine. Guided by Pointlol.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   metadataBase: new URL("https://neckromancer.nl"),
   openGraph: {
     title: "Neckromancer — Personal Neck Training",
