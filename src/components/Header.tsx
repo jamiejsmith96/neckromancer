@@ -74,96 +74,13 @@ export default function Header() {
   );
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 h-20 transition-all duration-500 ease-out ${
-        scrolled
-          ? "bg-obsidian-950/85 backdrop-blur-xl shadow-[0_1px_0_rgba(168,154,139,0.08)]"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-10">
-        {/* ── Logo / Wordmark ── */}
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          className="group relative font-heading text-[1.35rem] font-bold tracking-[0.06em] text-bone-50 transition-opacity hover:opacity-80"
-          aria-label="Neckromancer — back to top"
-        >
-          {/*
-            "NECK" is rendered in ember accent with heavier weight and
-            tighter spacing, making the brand pun visually distinct.
-            "ROMANCER" stays bone-white and slightly lighter.
-          */}
-          <span className="text-ember-400 font-extrabold tracking-[0.02em]">
-            NECK
-          </span>
-          <span className="font-semibold tracking-[0.08em]">ROMANCER</span>
-        </a>
-
-        {/* ── Desktop Navigation ── */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
-          {NAV_LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={(e) => scrollToSection(e, href)}
-              className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-bone-300 transition-colors duration-300 hover:text-bone-50"
-            >
-              {label}
-            </a>
-          ))}
-
-          {/* ── CTA ── */}
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, "#contact")}
-            className="ml-2 inline-flex h-10 items-center rounded-sm bg-ember-500 px-5 font-body text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-bone-50 transition-all duration-300 hover:bg-ember-400 hover:shadow-[0_0_20px_rgba(194,93,48,0.25)]"
-          >
-            Book Assessment
-          </a>
-        </nav>
-
-        {/* ── Mobile Hamburger ── */}
-        <button
-          type="button"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          className="relative z-50 flex h-10 w-10 items-center justify-center lg:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-        >
-          <div className="flex w-6 flex-col items-end gap-[5px]">
-            <span
-              className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
-                mobileOpen
-                  ? "w-6 translate-y-[7px] rotate-45"
-                  : "w-6"
-              }`}
-            />
-            <span
-              className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
-                mobileOpen ? "w-0 opacity-0" : "w-4"
-              }`}
-            />
-            <span
-              className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
-                mobileOpen
-                  ? "w-6 -translate-y-[7px] -rotate-45"
-                  : "w-5"
-              }`}
-            />
-          </div>
-        </button>
-      </div>
-
-      {/* ── Mobile Overlay ── */}
+    <>
+      {/* ── Mobile Overlay — rendered OUTSIDE header to avoid stacking context issues ── */}
       <div
-        className={`fixed inset-0 z-40 bg-obsidian-950/98 backdrop-blur-md transition-all duration-500 ease-out lg:hidden ${
+        className={`fixed inset-0 z-[998] bg-obsidian-950 backdrop-blur-md transition-all duration-500 ease-out lg:hidden ${
           mobileOpen
             ? "opacity-100 visible"
-            : "opacity-0 invisible"
+            : "opacity-0 invisible pointer-events-none"
         }`}
         aria-hidden={!mobileOpen}
       >
@@ -204,6 +121,87 @@ export default function Header() {
           </a>
         </nav>
       </div>
-    </header>
+
+      <header
+        className={`fixed top-0 left-0 right-0 z-[999] h-20 transition-all duration-500 ease-out ${
+          scrolled || mobileOpen
+            ? "bg-obsidian-950/85 backdrop-blur-xl shadow-[0_1px_0_rgba(168,154,139,0.08)]"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-between px-5 sm:px-8 lg:px-10">
+          {/* ── Logo / Wordmark ── */}
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileOpen(false);
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="relative font-heading text-[1.35rem] font-bold tracking-[0.06em] text-bone-50 transition-opacity hover:opacity-80"
+            aria-label="Neckromancer — back to top"
+          >
+            <span className="text-ember-400 font-extrabold tracking-[0.02em]">
+              NECK
+            </span>
+            <span className="font-semibold tracking-[0.08em]">ROMANCER</span>
+          </a>
+
+          {/* ── Desktop Navigation ── */}
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main">
+            {NAV_LINKS.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => scrollToSection(e, href)}
+                className="font-body text-[0.7rem] font-medium uppercase tracking-[0.18em] text-bone-300 transition-colors duration-300 hover:text-bone-50"
+              >
+                {label}
+              </a>
+            ))}
+
+            {/* ── CTA ── */}
+            <a
+              href="#contact"
+              onClick={(e) => scrollToSection(e, "#contact")}
+              className="ml-2 inline-flex h-10 items-center rounded-sm bg-ember-500 px-5 font-body text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-bone-50 transition-all duration-300 hover:bg-ember-400 hover:shadow-[0_0_20px_rgba(194,93,48,0.25)]"
+            >
+              Book Assessment
+            </a>
+          </nav>
+
+          {/* ── Mobile Hamburger ── */}
+          <button
+            type="button"
+            onClick={() => setMobileOpen((prev) => !prev)}
+            className="relative flex h-10 w-10 items-center justify-center lg:hidden"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+          >
+            <div className="flex w-6 flex-col items-end gap-[5px]">
+              <span
+                className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
+                  mobileOpen
+                    ? "w-6 translate-y-[7px] rotate-45"
+                    : "w-6"
+                }`}
+              />
+              <span
+                className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
+                  mobileOpen ? "w-0 opacity-0" : "w-4"
+                }`}
+              />
+              <span
+                className={`block h-[2px] bg-bone-100 transition-all duration-300 ease-out ${
+                  mobileOpen
+                    ? "w-6 -translate-y-[7px] -rotate-45"
+                    : "w-5"
+                }`}
+              />
+            </div>
+          </button>
+        </div>
+      </header>
+    </>
   );
 }

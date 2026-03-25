@@ -69,7 +69,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="section-deep relative min-h-dvh overflow-hidden pt-[100px]"
+      className="section-deep relative min-h-dvh overflow-x-clip pt-[100px]"
       aria-label="Hero"
     >
       {/* ────────────────────────────────────────────────────────
@@ -219,18 +219,18 @@ export default function Hero() {
           CONTENT
           ──────────────────────────────────────────────────────── */}
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-100px)] max-w-[1200px] flex-col items-center justify-center px-5 sm:px-8 lg:px-10">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-100px)] max-w-[1200px] flex-col items-center justify-center px-6 sm:px-8 lg:px-10">
         <div className="flex flex-col items-center text-center">
-          {/* Brand name */}
+          {/* Brand name — scales down to fit mobile in one line */}
           <h1
-            className="animate-hero-title font-heading text-[clamp(3rem,10vw,8rem)] font-bold leading-[0.9] tracking-[0.04em] text-bone-50"
+            className="animate-hero-title font-heading text-[clamp(2.2rem,9vw,8rem)] font-bold leading-[0.85] tracking-[0.02em] text-bone-50"
           >
             <span className="text-ember-400">NECK</span>
             <span>ROMANCER</span>
           </h1>
 
           {/* Tagline */}
-          <p className="animate-hero-subtitle mt-5 font-heading text-[clamp(0.85rem,1.8vw,1.35rem)] font-medium uppercase tracking-[0.2em] text-marrow-400 sm:mt-6">
+          <p className="animate-hero-subtitle mt-5 font-heading text-[clamp(0.7rem,1.8vw,1.35rem)] font-medium uppercase tracking-[0.1em] sm:tracking-[0.2em] text-marrow-400 sm:mt-6">
             The Dark Art of Neck Training
           </p>
 
